@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 const CLASS_FORMAT = 'YYYY-MM-DD';
 
-function classNameCommentDate(commentDate: Date) {
+function classNameCommentDate(commentDate: string | Date) {
   return commentDate ? dayjs(commentDate).format(CLASS_FORMAT) : '';
 }
 
