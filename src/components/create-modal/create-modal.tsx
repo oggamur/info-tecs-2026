@@ -1,6 +1,7 @@
 import React from 'react';
 import './create-modal.scss';
 
+
 const CreateModal: React.FC = () => {
   return (
     <div className="create-user-modal-overlay">
