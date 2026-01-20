@@ -6,7 +6,7 @@ import { UsersData } from '../../types/state';
 const initialState: UsersData = {
   users: [],
   isUsersLoading: false,
-  error: null,
+  hasError: false,
 };
 
 export const usersData = createSlice({
@@ -25,7 +25,7 @@ export const usersData = createSlice({
       state.isUsersLoading = false;
     });
     builder.addCase(fetchUsers.rejected, (state, action) => {
-      state.error = action.error.message ?? 'Failed to fetch users';
+      state.hasError = true;
       state.isUsersLoading = false;
     });
   },

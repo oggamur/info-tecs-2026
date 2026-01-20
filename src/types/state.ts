@@ -14,5 +14,5 @@ export type User = {
 export type UsersData = {
   users: User[];
   isUsersLoading: boolean;
-  error: string | null;
+  hasError: boolean;
 };

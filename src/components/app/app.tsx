@@ -6,13 +6,28 @@ import HistoryRouter from '../history-router/history-router';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Login from '../../pages/login/login-screen';
-import { getIsUsersLoading } from '../../store/users-data/selectors';
+import { getHasError, getIsUsersLoading } from '../../store/users-data/selectors';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading/loading-screen';
+import ErrorScreen from '../../pages/error/error-screen';
+import { Button } from 'antd';
 
 function App(): JSX.Element {
   const isUsersLoading = useAppSelector(getIsUsersLoading);
-
+  const hasError = useAppSelector(getHasError);
+  if (hasError) {
+    return (
+      <ErrorScreen
+        title="500"
+        subTitle="Извините, что-то пошло не так."
+        extra={
+          <Button type="primary" onClick={() => window.location.reload()}>
+            Обновить страницу
+          </Button>
+        }
+      />
+    );
+  }
   if (isUsersLoading) {
     return <LoadingScreen />;
   }
