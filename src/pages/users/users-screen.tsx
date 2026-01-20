@@ -13,6 +13,9 @@ import { createUser, updateUser, deleteUser, fetchUsers } from '../../store/api-
 import UsersModalContent from '../../components/edit-modal/edit-modal';
 import CreateUserModalContent from '../../components/create-modal/create-modal';
 import { setCreateModalOpen, clearCreateUserData } from '../../store/create-user-data/create-user-data';
+import { logoutAction } from '../../store/api-actions';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function Users ():JSX.Element {
 
@@ -27,24 +30,38 @@ function Users ():JSX.Element {
   const createModalIsOpen = useAppSelector(getCreateModalIsOpen);
   const createIsSuccess = useAppSelector(getCreateIsSuccess);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="users-page">
       <div className="users-card">
-        <button className="logout-button">Выход</button>
+        <button
+          className="logout-button"
+          onClick={async () => {
+            await dispatch(logoutAction()).unwrap();
+            navigate(AppRoute.Login);
+          }}
+        >
+          Выход
+        </button>
 
         {isEditModalOpen && (
           <Modal
             title="Редактирование пользователя"
             open={isEditModalOpen}
             onCancel={() => {
-              dispatch(clearUser());
-              dispatch(setIsEditModalOpen(false));
+              if (!editModalIsLoading) {
+                dispatch(clearUser());
+                dispatch(setIsEditModalOpen(false));
+              }
             }}
             footer={null}
             className="users-modal"
             wrapClassName="users-modal-wrap"
             width={420}
+            maskClosable={!editModalIsLoading}
+            keyboard={!editModalIsLoading}
+            closable={!editModalIsLoading}
           >
             <UsersModalContent
               user={editUserData}
@@ -70,12 +87,17 @@ function Users ():JSX.Element {
             title="Создание пользователя"
             open={createModalIsOpen}
             onCancel={() => {
-              dispatch(clearCreateUserData());
+              if (!createModalIsLoading) {
+                dispatch(clearCreateUserData());
+              }
             }}
             footer={null}
             className="create-user-modal"
             wrapClassName="create-user-modal-wrap"
             width={500}
+            maskClosable={!createModalIsLoading}
+            keyboard={!createModalIsLoading}
+            closable={!createModalIsLoading}
           >
             <CreateUserModalContent
               onCancel={() => {

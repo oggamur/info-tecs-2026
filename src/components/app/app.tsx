@@ -11,6 +11,8 @@ import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading/loading-screen';
 import ErrorScreen from '../../pages/error/error-screen';
 import { Button } from 'antd';
+import PrivateRoute from '../private-route/private-route';
+import PublicRoute from '../public-route/public-route';
 
 function App(): JSX.Element {
   const isUsersLoading = useAppSelector(getIsUsersLoading);
@@ -37,17 +39,21 @@ function App(): JSX.Element {
       <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
-          path={AppRoute.Main}
-          element={
-           <Users/>
-          }>
-          </Route>
+            path={AppRoute.Main}
+            element={
+              <PrivateRoute>
+                <Users/>
+              </PrivateRoute>
+            }
+          />
           <Route
-          path={AppRoute.Login}
-          element={
-           <Login/>
-          }>
-          </Route>
+            path={AppRoute.Login}
+            element={
+              <PublicRoute>
+                <Login/>
+              </PublicRoute>
+            }
+          />
         </Routes>
       </HistoryRouter>
     </HelmetProvider>

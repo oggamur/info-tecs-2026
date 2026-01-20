@@ -177,15 +177,15 @@ function UsersModalContent({ user, onCancel, onSave, onDelete, isLoading, hasErr
 
       <div className="users-modal-actions">
         <div className="users-modal-actions-left">
-          <Button type="primary" onClick={handleDelete}>
+          <Button type="primary" onClick={handleDelete} disabled={isLoading}>
             Удалить
           </Button>
         </div>
         <div className="users-modal-actions-right">
-          <Button type="primary" onClick={handleSave}>
+          <Button type="primary" onClick={handleSave} disabled={isLoading}>
             Сохранить
           </Button>
-          <Button type="primary" onClick={onCancel}>
+          <Button type="primary" onClick={onCancel} disabled={isLoading}>
             Отмена
           </Button>
         </div>

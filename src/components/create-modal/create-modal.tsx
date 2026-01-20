@@ -162,10 +162,10 @@ function CreateUserModalContent({ onCancel, onSubmit, isSuccess, isLoading, hasE
       </div>
 
       <div className="create-user-modal-actions">
-        <Button type="primary" onClick={handleSubmit}>
+        <Button type="primary" onClick={handleSubmit} disabled={isLoading}>
           Создать
         </Button>
-        <Button type="primary" onClick={onCancel}>
+        <Button type="primary" onClick={onCancel} disabled={isLoading}>
           Отмена
         </Button>
       </div>

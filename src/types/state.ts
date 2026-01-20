@@ -33,3 +33,9 @@ export type CreateUserData = {
   isCreateModalOpen: boolean;
   isCreateSuccess: boolean;
 };
+
+import { AuthorizationStatus } from '../const';
+
+export type AuthData = {
+  authorizationStatus: AuthorizationStatus;
+};
